@@ -1,10 +1,12 @@
 #!/usr/bin/env python
 import os
-import time
+
 import rospy
 from cv_bridge import CvBridge, CvBridgeError
 from std_msgs.msg import String
 from sensor_msgs.msg import Image
+
+from EmoPy.src.fermodel import FERModel
 
 class EmotionRecognizer(object):
 
@@ -13,9 +15,7 @@ class EmotionRecognizer(object):
         self.pub = rospy.Publisher('emotion_image', Image, queue_size=1)
         self.count = 0
         self.bridge = CvBridge()
-
-    def republish(self, image):
-        self.pub.publish(image)
+        self.target_emotions = ['calm', 'anger', 'happiness']
 
     def recognize(self, msg):
         self.count += 1
@@ -34,7 +34,7 @@ class EmotionRecognizer(object):
             ros_frame = self.bridge.cv2_to_imgmsg(frame, "bgr8")
             self.pub.publish(ros_frame)
         except CvBridgeError as ex:
-            logger.error(ex)
+            print(ex)
 
 if __name__ == '__main__':
     rospy.init_node('emotion')
