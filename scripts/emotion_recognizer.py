@@ -10,12 +10,12 @@ from EmoPy.src.fermodel import FERModel
 
 class EmotionRecognizer(object):
 
-    def __init__(self):
+    def __init__(self, emotions=['calm', 'anger', 'happiness']):
         self.sub = rospy.Subscriber('camera/image_raw', Image, self.recognize)
         self.pub = rospy.Publisher('emotion_image', Image, queue_size=1)
         self.count = 0
         self.bridge = CvBridge()
-        self.target_emotions = ['calm', 'anger', 'happiness']
+        self.target_emotions = emotions
 
     def recognize(self, msg):
         self.count += 1
