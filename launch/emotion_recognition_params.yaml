@@ -1,0 +1,5 @@
+# Set your camera topic here
+camera_topic: "/body_tracker/rgb/raw_image"
+
+# Set your output topic here
+output_topic: "/emotion_recognition/emotion"

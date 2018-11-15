@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+
+<launch>
+  <node name="emotion_recognition" pkg="ros_emotion" type="emotion_recognizer.py" output="screen">
+    <rosparam command="load" file="$(find ros_emotion)/launch/emotion_recognition_params.yaml"/>
+  </node>
+</launch>
